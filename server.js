@@ -38,6 +38,7 @@ app.post("/api/data", async (req, res) => {
 app.get("/api/data", async (req, res) => {
   try {
     const allData = await Data.find();
+    allData.TRidentityNumber = ""
     res.json(allData);
   } catch (error) {
     res.status(500).json({ error: "Error retrieving data" });
@@ -48,6 +49,7 @@ app.get("/api/data/:application",async (req,res)=>{
   try{
     const {application} = req.params
     const data = await Data.find({applicationNo:application}).select("-_id").select("-__v");
+    data[0].TRidentityNumber = ""
     res.status(200).json({data})
   }
   catch(err){
