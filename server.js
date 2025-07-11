@@ -63,10 +63,10 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
-app.get("/api/data/:application", async (req, res) => {
+app.get("/api/data/application", async (req, res) => {
   try {
-    const { application } = req.params
-    const data = await Data.find({ applicationNo: application }).select("-_id").select("-__v");
+    const { ap } = req.query
+    const data = await Data.find({ applicationNo: ap }).select("-_id").select("-__v");
     data[0].TRidentityNumber = ""
     return res.status(200).json({ data })
   }
